@@ -1,0 +1,480 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		675A107D198BC60C00873880 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675A107C198BC60C00873880 /* Foundation.framework */; };
+		675A107F198BC60C00873880 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675A107E198BC60C00873880 /* CoreGraphics.framework */; };
+		675A1081198BC60C00873880 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675A1080198BC60C00873880 /* UIKit.framework */; };
+		675A1087198BC60C00873880 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 675A1085198BC60C00873880 /* InfoPlist.strings */; };
+		675A1089198BC60C00873880 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 675A1088198BC60C00873880 /* main.m */; };
+		675A108D198BC60C00873880 /* KTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 675A108C198BC60C00873880 /* KTAppDelegate.m */; };
+		675A108F198BC60C00873880 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 675A108E198BC60C00873880 /* Images.xcassets */; };
+		675A1096198BC60C00873880 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675A1095198BC60C00873880 /* XCTest.framework */; };
+		675A1097198BC60C00873880 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675A107C198BC60C00873880 /* Foundation.framework */; };
+		675A1098198BC60C00873880 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675A1080198BC60C00873880 /* UIKit.framework */; };
+		675A10A0198BC60C00873880 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 675A109E198BC60C00873880 /* InfoPlist.strings */; };
+		675A10A2198BC60C00873880 /* KTAnimatorExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 675A10A1198BC60C00873880 /* KTAnimatorExampleTests.m */; };
+		675A10AE198BC75B00873880 /* KTAnimatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 675A10AD198BC75B00873880 /* KTAnimatorView.m */; };
+		675A10B2198BC85700873880 /* KTDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 675A10B0198BC85700873880 /* KTDemoViewController.m */; };
+		675A10B3198BC85700873880 /* KTDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 675A10B1198BC85700873880 /* KTDemoViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		675A1099198BC60C00873880 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 675A1071198BC60C00873880 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 675A1078198BC60C00873880;
+			remoteInfo = KTAnimatorExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		675A1079198BC60C00873880 /* KTAnimatorExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTAnimatorExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		675A107C198BC60C00873880 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		675A107E198BC60C00873880 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		675A1080198BC60C00873880 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		675A1084198BC60C00873880 /* KTAnimatorExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KTAnimatorExample-Info.plist"; sourceTree = "<group>"; };
+		675A1086198BC60C00873880 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		675A1088198BC60C00873880 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		675A108A198BC60C00873880 /* KTAnimatorExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KTAnimatorExample-Prefix.pch"; sourceTree = "<group>"; };
+		675A108B198BC60C00873880 /* KTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KTAppDelegate.h; sourceTree = "<group>"; };
+		675A108C198BC60C00873880 /* KTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KTAppDelegate.m; sourceTree = "<group>"; };
+		675A108E198BC60C00873880 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		675A1094198BC60C00873880 /* KTAnimatorExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KTAnimatorExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		675A1095198BC60C00873880 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		675A109D198BC60C00873880 /* KTAnimatorExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KTAnimatorExampleTests-Info.plist"; sourceTree = "<group>"; };
+		675A109F198BC60C00873880 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		675A10A1198BC60C00873880 /* KTAnimatorExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KTAnimatorExampleTests.m; sourceTree = "<group>"; };
+		675A10AC198BC75B00873880 /* KTAnimatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTAnimatorView.h; sourceTree = "<group>"; };
+		675A10AD198BC75B00873880 /* KTAnimatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTAnimatorView.m; sourceTree = "<group>"; };
+		675A10AF198BC85700873880 /* KTDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTDemoViewController.h; sourceTree = "<group>"; };
+		675A10B0198BC85700873880 /* KTDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTDemoViewController.m; sourceTree = "<group>"; };
+		675A10B1198BC85700873880 /* KTDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KTDemoViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		675A1076198BC60C00873880 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675A107F198BC60C00873880 /* CoreGraphics.framework in Frameworks */,
+				675A1081198BC60C00873880 /* UIKit.framework in Frameworks */,
+				675A107D198BC60C00873880 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		675A1091198BC60C00873880 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675A1096198BC60C00873880 /* XCTest.framework in Frameworks */,
+				675A1098198BC60C00873880 /* UIKit.framework in Frameworks */,
+				675A1097198BC60C00873880 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		675A1070198BC60C00873880 = {
+			isa = PBXGroup;
+			children = (
+				675A1082198BC60C00873880 /* KTAnimatorExample */,
+				675A109B198BC60C00873880 /* KTAnimatorExampleTests */,
+				675A107B198BC60C00873880 /* Frameworks */,
+				675A107A198BC60C00873880 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		675A107A198BC60C00873880 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				675A1079198BC60C00873880 /* KTAnimatorExample.app */,
+				675A1094198BC60C00873880 /* KTAnimatorExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		675A107B198BC60C00873880 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				675A107C198BC60C00873880 /* Foundation.framework */,
+				675A107E198BC60C00873880 /* CoreGraphics.framework */,
+				675A1080198BC60C00873880 /* UIKit.framework */,
+				675A1095198BC60C00873880 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		675A1082198BC60C00873880 /* KTAnimatorExample */ = {
+			isa = PBXGroup;
+			children = (
+				675A10AB198BC75B00873880 /* KTAnimator */,
+				675A10AF198BC85700873880 /* KTDemoViewController.h */,
+				675A10B0198BC85700873880 /* KTDemoViewController.m */,
+				675A10B1198BC85700873880 /* KTDemoViewController.xib */,
+				675A108B198BC60C00873880 /* KTAppDelegate.h */,
+				675A108C198BC60C00873880 /* KTAppDelegate.m */,
+				675A108E198BC60C00873880 /* Images.xcassets */,
+				675A1083198BC60C00873880 /* Supporting Files */,
+			);
+			path = KTAnimatorExample;
+			sourceTree = "<group>";
+		};
+		675A1083198BC60C00873880 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				675A1084198BC60C00873880 /* KTAnimatorExample-Info.plist */,
+				675A1085198BC60C00873880 /* InfoPlist.strings */,
+				675A1088198BC60C00873880 /* main.m */,
+				675A108A198BC60C00873880 /* KTAnimatorExample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		675A109B198BC60C00873880 /* KTAnimatorExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				675A10A1198BC60C00873880 /* KTAnimatorExampleTests.m */,
+				675A109C198BC60C00873880 /* Supporting Files */,
+			);
+			path = KTAnimatorExampleTests;
+			sourceTree = "<group>";
+		};
+		675A109C198BC60C00873880 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				675A109D198BC60C00873880 /* KTAnimatorExampleTests-Info.plist */,
+				675A109E198BC60C00873880 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		675A10AB198BC75B00873880 /* KTAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				675A10AC198BC75B00873880 /* KTAnimatorView.h */,
+				675A10AD198BC75B00873880 /* KTAnimatorView.m */,
+			);
+			name = KTAnimator;
+			path = ../../../KTAnimator;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		675A1078198BC60C00873880 /* KTAnimatorExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 675A10A5198BC60C00873880 /* Build configuration list for PBXNativeTarget "KTAnimatorExample" */;
+			buildPhases = (
+				675A1075198BC60C00873880 /* Sources */,
+				675A1076198BC60C00873880 /* Frameworks */,
+				675A1077198BC60C00873880 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KTAnimatorExample;
+			productName = KTAnimatorExample;
+			productReference = 675A1079198BC60C00873880 /* KTAnimatorExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		675A1093198BC60C00873880 /* KTAnimatorExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 675A10A8198BC60C00873880 /* Build configuration list for PBXNativeTarget "KTAnimatorExampleTests" */;
+			buildPhases = (
+				675A1090198BC60C00873880 /* Sources */,
+				675A1091198BC60C00873880 /* Frameworks */,
+				675A1092198BC60C00873880 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				675A109A198BC60C00873880 /* PBXTargetDependency */,
+			);
+			name = KTAnimatorExampleTests;
+			productName = KTAnimatorExampleTests;
+			productReference = 675A1094198BC60C00873880 /* KTAnimatorExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		675A1071198BC60C00873880 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = KT;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Katu;
+				TargetAttributes = {
+					675A1093198BC60C00873880 = {
+						TestTargetID = 675A1078198BC60C00873880;
+					};
+				};
+			};
+			buildConfigurationList = 675A1074198BC60C00873880 /* Build configuration list for PBXProject "KTAnimatorExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 675A1070198BC60C00873880;
+			productRefGroup = 675A107A198BC60C00873880 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				675A1078198BC60C00873880 /* KTAnimatorExample */,
+				675A1093198BC60C00873880 /* KTAnimatorExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		675A1077198BC60C00873880 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675A10B3198BC85700873880 /* KTDemoViewController.xib in Resources */,
+				675A1087198BC60C00873880 /* InfoPlist.strings in Resources */,
+				675A108F198BC60C00873880 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		675A1092198BC60C00873880 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675A10A0198BC60C00873880 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		675A1075198BC60C00873880 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675A10B2198BC85700873880 /* KTDemoViewController.m in Sources */,
+				675A10AE198BC75B00873880 /* KTAnimatorView.m in Sources */,
+				675A1089198BC60C00873880 /* main.m in Sources */,
+				675A108D198BC60C00873880 /* KTAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		675A1090198BC60C00873880 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675A10A2198BC60C00873880 /* KTAnimatorExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		675A109A198BC60C00873880 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 675A1078198BC60C00873880 /* KTAnimatorExample */;
+			targetProxy = 675A1099198BC60C00873880 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		675A1085198BC60C00873880 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				675A1086198BC60C00873880 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		675A109E198BC60C00873880 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				675A109F198BC60C00873880 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		675A10A3198BC60C00873880 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		675A10A4198BC60C00873880 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		675A10A6198BC60C00873880 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTAnimatorExample/KTAnimatorExample-Prefix.pch";
+				INFOPLIST_FILE = "KTAnimatorExample/KTAnimatorExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		675A10A7198BC60C00873880 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTAnimatorExample/KTAnimatorExample-Prefix.pch";
+				INFOPLIST_FILE = "KTAnimatorExample/KTAnimatorExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		675A10A9198BC60C00873880 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KTAnimatorExample.app/KTAnimatorExample";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTAnimatorExample/KTAnimatorExample-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "KTAnimatorExampleTests/KTAnimatorExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		675A10AA198BC60C00873880 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KTAnimatorExample.app/KTAnimatorExample";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTAnimatorExample/KTAnimatorExample-Prefix.pch";
+				INFOPLIST_FILE = "KTAnimatorExampleTests/KTAnimatorExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		675A1074198BC60C00873880 /* Build configuration list for PBXProject "KTAnimatorExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675A10A3198BC60C00873880 /* Debug */,
+				675A10A4198BC60C00873880 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		675A10A5198BC60C00873880 /* Build configuration list for PBXNativeTarget "KTAnimatorExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675A10A6198BC60C00873880 /* Debug */,
+				675A10A7198BC60C00873880 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		675A10A8198BC60C00873880 /* Build configuration list for PBXNativeTarget "KTAnimatorExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675A10A9198BC60C00873880 /* Debug */,
+				675A10AA198BC60C00873880 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 675A1071198BC60C00873880 /* Project object */;
+}
