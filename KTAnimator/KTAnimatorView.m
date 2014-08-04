@@ -53,6 +53,11 @@
               context:NULL];
 }
 
+- (void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"currentPage"];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -73,6 +78,7 @@
         __block UIButton *iv = [[UIButton alloc] initWithFrame:itemFrame];
         [iv setImage:im forState:UIControlStateNormal];
         [iv addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
+        [iv setAdjustsImageWhenHighlighted:NO];
         iv.alpha = itemModel.startAlpha;
         iv.tag = i; i++;
         
