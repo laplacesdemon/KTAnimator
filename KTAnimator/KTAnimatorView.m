@@ -45,6 +45,7 @@
     self.pagingEnabled = YES;
     self.scrollEnabled = YES;
     self.delegate = self;
+    self.verticalScrolling = NO;
  
     // observe the page changes to kick animations off
     [self addObserver:self
@@ -116,14 +117,20 @@
 - (void)reloadData
 {
     // calculate the content size width
-    NSInteger totalContentWidth = 0;
+    NSInteger totalContentSize = 0;
     
     NSInteger totalSlides = [self.dataSource totalNumberOfSlides];
     for (int i = 0; i < totalSlides; i++) {
         KTSlide *slide = [self.dataSource animator:self slideForIndex:i];
         
         //Creating view with background image with scrollview size on its' own position
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(totalContentWidth, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
+        UIView *view;
+        if (self.hasVerticalScrolling) {
+            view = [[UIView alloc] initWithFrame:CGRectMake(0, totalContentSize, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
+        } else {
+            view = [[UIView alloc] initWithFrame:CGRectMake(totalContentSize, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
+        }
+        
         
         UIImage *im = (slide.background == nil) ? [UIImage new] : [UIImage imageNamed:slide.background];
         UIImageView *bgView = [[UIImageView alloc] initWithImage:im];
@@ -133,10 +140,12 @@
         view.tag = i + 10;
         [self addSubview:view];
         
-        totalContentWidth += CGRectGetWidth(self.frame);
+        totalContentSize += (self.hasVerticalScrolling) ? CGRectGetHeight(self.frame) : CGRectGetWidth(self.frame);
     }
     
-    //self.contentSize = CGSizeMake(totalContentWidth, CGRectGetHeight(self.frame));
+    self.contentSize = (self.hasVerticalScrolling) ?
+    CGSizeMake(CGRectGetWidth(self.frame), totalContentSize) :
+    CGSizeMake(totalContentSize, CGRectGetHeight(self.frame));
     
     // the initial page will kick the 1st animations
     self.currentPage = 0;
@@ -159,10 +168,19 @@
 
 - (void)showPage:(NSInteger)index animated:(BOOL)animated
 {
-    CGRect fr = CGRectMake(CGRectGetWidth(self.frame) * index,
-                           self.contentOffset.y,
-                           CGRectGetWidth(self.frame),
-                           CGRectGetHeight(self.frame));
+    CGRect fr;
+    if (self.hasVerticalScrolling) {
+        fr = CGRectMake(self.contentOffset.x,
+                        CGRectGetHeight(self.frame) * index,
+                        CGRectGetWidth(self.frame),
+                        CGRectGetHeight(self.frame));
+    } else {
+        fr = CGRectMake(CGRectGetWidth(self.frame) * index,
+                        self.contentOffset.y,
+                        CGRectGetWidth(self.frame),
+                        CGRectGetHeight(self.frame));
+    }
+    
     [self scrollRectToVisible:fr animated:animated];
     self.currentPage = index;
 }
@@ -223,10 +241,18 @@
     scrollView.userInteractionEnabled = YES;
     
     // calculate the current page
-    NSInteger page = self.contentOffset.x / self.frame.size.width;
-    if (page != self.currentPage) {
-        self.currentPage = page;
+    if (self.hasVerticalScrolling) {
+        NSInteger page = self.contentOffset.y / self.frame.size.height;
+        if (page != self.currentPage) {
+            self.currentPage = page;
+        }
+    } else {
+        NSInteger page = self.contentOffset.x / self.frame.size.width;
+        if (page != self.currentPage) {
+            self.currentPage = page;
+        }
     }
+    
 }
 
 

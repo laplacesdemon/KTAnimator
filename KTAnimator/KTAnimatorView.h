@@ -28,6 +28,8 @@
 
 @property (nonatomic) NSInteger currentPage;
 
+@property (nonatomic, getter = hasVerticalScrolling) BOOL verticalScrolling;
+
 - (void)reloadData;
 - (void)showNextPageAnimated:(BOOL)animated;
 - (void)showPreviousPageAnimated:(BOOL)animated;
