@@ -70,7 +70,7 @@
     int i = 100;
     for (__block KTItem *itemModel in slide.items) {
         
-        UIImage *im = [UIImage imageNamed:itemModel.src];
+        UIImage *im = (itemModel.src == nil) ? [UIImage new] : [UIImage imageNamed:itemModel.src];
         CGRect itemFrame = CGRectMake(itemModel.startPosition.x,
                                       itemModel.startPosition.y,
                                       im.size.width,
@@ -82,15 +82,23 @@
         iv.alpha = itemModel.startAlpha;
         iv.tag = i; i++;
         
+        iv.clipsToBounds = YES;
+        __block CGRect originalFr = iv.frame;
+        CGRect fr = iv.frame;
+        fr.size.height *= itemModel.zoom;
+        fr.size.width *= itemModel.zoom;
+        fr.origin.x -= (fr.size.width - originalFr.size.width)/2.0f;
+        fr.origin.y -= (fr.size.height - originalFr.size.height)/2.0f;
+        iv.frame = fr;
+        
         [slideView addSubview:iv];
         
         [UIView animateWithDuration:itemModel.animationDuration
                          animations:^{
                              iv.alpha = itemModel.endAlpha;
-                             CGRect fr = iv.frame;
-                             fr.origin.x = itemModel.endPosition.x;
-                             fr.origin.y = itemModel.endPosition.y;
-                             iv.frame = fr;
+                             originalFr.origin.x = itemModel.endPosition.x;
+                             originalFr.origin.y = itemModel.endPosition.y;
+                             iv.frame = originalFr;
                          }];
     }
     
@@ -117,7 +125,8 @@
         //Creating view with background image with scrollview size on its' own position
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(totalContentWidth, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
         
-        UIImageView *bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:slide.background]];
+        UIImage *im = (slide.background == nil) ? [UIImage new] : [UIImage imageNamed:slide.background];
+        UIImageView *bgView = [[UIImageView alloc] initWithImage:im];
         bgView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
         [view addSubview:bgView];
         
@@ -127,7 +136,7 @@
         totalContentWidth += CGRectGetWidth(self.frame);
     }
     
-    self.contentSize = CGSizeMake(totalContentWidth, CGRectGetHeight(self.frame));
+    //self.contentSize = CGSizeMake(totalContentWidth, CGRectGetHeight(self.frame));
     
     // the initial page will kick the 1st animations
     self.currentPage = 0;
@@ -277,6 +286,7 @@
         self.startAlpha = startAlpha;
         self.endAlpha = endAlpha;
         self.animationDuration = animationDuration;
+        self.zoom = 1.0f;
     }
     
     return self;

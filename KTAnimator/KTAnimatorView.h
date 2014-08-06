@@ -88,6 +88,7 @@
 @property (nonatomic) CGPoint endPosition;
 @property (nonatomic) CGFloat startAlpha;
 @property (nonatomic) CGFloat endAlpha;
+@property (nonatomic) CGFloat zoom; // defaults to 1.0f
 
 /**
  *  Defaults to 1.0f
