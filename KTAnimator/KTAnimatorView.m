@@ -90,7 +90,7 @@
         // zoom out
         if (itemModel.zoomOut > 1.0f) {
             iv.transform = CGAffineTransformMakeScale(itemModel.zoomOut,itemModel.zoomOut);
-        }
+        } else
         
         // zoom in
         if (itemModel.zoomIn > 1.0f) {
@@ -108,16 +108,16 @@
                              // zoom out
                              if (itemModel.zoomOut > 1.0f) {
                                  iv.transform = CGAffineTransformMakeScale(1,1);
-                             }
+                             } else
                              
                              // zoom in
                              if (itemModel.zoomIn > 1.0f) {
-                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn,itemModel.zoomIn);
+                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn, itemModel.zoomIn);
+                             } else {
+                                 originalFr.origin.x = itemModel.endPosition.x;
+                                 originalFr.origin.y = itemModel.endPosition.y;
+                                 iv.frame = originalFr;
                              }
-                             
-                             originalFr.origin.x = itemModel.endPosition.x;
-                             originalFr.origin.y = itemModel.endPosition.y;
-                             iv.frame = originalFr;
                              
                          } completion:^(BOOL finished) {
                              //
