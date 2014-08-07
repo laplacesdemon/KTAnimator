@@ -84,22 +84,43 @@
         iv.tag = i; i++;
         
         iv.clipsToBounds = YES;
+        
         __block CGRect originalFr = iv.frame;
-        CGRect fr = iv.frame;
-        fr.size.height *= itemModel.zoom;
-        fr.size.width *= itemModel.zoom;
-        fr.origin.x -= (fr.size.width - originalFr.size.width)/2.0f;
-        fr.origin.y -= (fr.size.height - originalFr.size.height)/2.0f;
-        iv.frame = fr;
+        
+        // zoom out
+        if (itemModel.zoomOut > 1.0f) {
+            iv.transform = CGAffineTransformMakeScale(itemModel.zoomOut,itemModel.zoomOut);
+        }
+        
+        // zoom in
+        if (itemModel.zoomIn > 1.0f) {
+            iv.transform = CGAffineTransformMakeScale(1, 1);
+        }
         
         [slideView addSubview:iv];
         
         [UIView animateWithDuration:itemModel.animationDuration
+                              delay:0.0f
+                            options:UIViewAnimationOptionLayoutSubviews
                          animations:^{
                              iv.alpha = itemModel.endAlpha;
+                             
+                             // zoom out
+                             if (itemModel.zoomOut > 1.0f) {
+                                 iv.transform = CGAffineTransformMakeScale(1,1);
+                             }
+                             
+                             // zoom in
+                             if (itemModel.zoomIn > 1.0f) {
+                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn,itemModel.zoomIn);
+                             }
+                             
                              originalFr.origin.x = itemModel.endPosition.x;
                              originalFr.origin.y = itemModel.endPosition.y;
                              iv.frame = originalFr;
+                             
+                         } completion:^(BOOL finished) {
+                             //
                          }];
     }
     
@@ -312,7 +333,8 @@
         self.startAlpha = startAlpha;
         self.endAlpha = endAlpha;
         self.animationDuration = animationDuration;
-        self.zoom = 1.0f;
+        self.zoomIn = 1.0f;
+        self.zoomOut = 1.0f;
     }
     
     return self;
