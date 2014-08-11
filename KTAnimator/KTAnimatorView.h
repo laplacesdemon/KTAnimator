@@ -65,16 +65,21 @@
 ///////////////////////////////////////////////////////////////
 
 
+/**
+ *  Slide object represents a page that has number of items that 
+ *  are animatable and optionally a background
+ */
 @interface KTSlide : NSObject
 
-@property (nonatomic, strong) NSString *background;
+@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) NSMutableArray *items;
 
 - (instancetype)initWithItems:(NSArray *)items
-             backgroundSource:(NSString *)backgroundSource;
+               backgroundView:(UIView *)backgroundView;
 
 + (instancetype)slideWithItems:(NSArray *)items
-              backgroundSource:(NSString *)backgroundSource;
+                backgroundView:(UIView *)backgroundView;
+
 @end
 
 
@@ -83,9 +88,13 @@
 ///////////////////////////////////////////////////////////////
 
 
+/**
+ *  An item is a wrapper of the animatable view object with 
+ *  properties that will be used in animation
+ */
 @interface KTItem : NSObject
 
-@property (nonatomic, strong) NSString *src;
+@property (nonatomic, strong) UIView *view;
 @property (nonatomic) CGPoint startPosition;
 @property (nonatomic) CGPoint endPosition;
 @property (nonatomic) CGFloat startAlpha;
@@ -98,18 +107,18 @@
  */
 @property (nonatomic) CGFloat animationDuration;
 
-- (instancetype)initWithImageSource:(NSString *)source
-                      startPosition:(CGPoint)startPoint
-                           endPoint:(CGPoint)endPoint
-                         startAlpha:(CGFloat)startAlpha
-                            endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat) animationDuration;
+- (instancetype)initWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat) animationDuration;
 
-+ (instancetype)itemWithImageSource:(NSString *)source
-                      startPosition:(CGPoint)startPoint
-                           endPoint:(CGPoint)endPoint
-                         startAlpha:(CGFloat)startAlpha
-                            endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat) animationDuration;
++ (instancetype)itemWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat) animationDuration;
 
 @end
