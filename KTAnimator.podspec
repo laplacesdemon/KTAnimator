@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/laplacesdemon/KTAnimator"
   s.license      = { :type => "MIT License", :file => "LICENSE" }
   s.author       = { "Suleyman Melikoglu" => "suleyman@katu.com.tr", "Batu Orhanalp" => "batu@katu.com.tr" }
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "6.0"
   s.source       = { :git => "https://github.com/laplacesdemon/KTAnimator.git", :tag => "1.0" }
   s.source_files = 'KTAnimator/*.{h,m}'
   s.requires_arc = true
