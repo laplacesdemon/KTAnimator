@@ -100,7 +100,7 @@
         }
         
         [UIView animateWithDuration:itemModel.animationDuration
-                              delay:0.0f
+                              delay:itemModel.delay
                             options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              iv.alpha = itemModel.endAlpha;
