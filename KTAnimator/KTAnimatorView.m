@@ -338,6 +338,7 @@
         self.startAlpha = startAlpha;
         self.endAlpha = endAlpha;
         self.animationDuration = animationDuration;
+        self.delay = 0.0f;
         self.zoomIn = 1.0f;
         self.zoomOut = 1.0f;
     }
@@ -358,6 +359,24 @@
                              startAlpha:startAlpha
                                 endApha:endAlpha
                       animationDuration:animationDuration];
+}
+
++ (instancetype)itemWithView:(UIView *)aView
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay
+{
+    KTItem *item = [[KTItem alloc] initWithView:aView
+                                  startPosition:startPoint
+                                       endPoint:endPoint
+                                     startAlpha:startAlpha
+                                        endApha:endAlpha
+                              animationDuration:animationDuration];
+    item.delay = delay;
+    return item;
 }
 
 @end

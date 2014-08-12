@@ -107,6 +107,11 @@
  */
 @property (nonatomic) CGFloat animationDuration;
 
+/**
+ *  Defaults to 0.0f
+ */
+@property (nonatomic) CGFloat delay;
+
 - (instancetype)initWithView:(UIView *)view
                startPosition:(CGPoint)startPoint
                     endPoint:(CGPoint)endPoint
@@ -119,6 +124,14 @@
                     endPoint:(CGPoint)endPoint
                   startAlpha:(CGFloat)startAlpha
                      endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat) animationDuration;
+           animationDuration:(CGFloat)animationDuration;
+
++ (instancetype)itemWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay;
 
 @end
