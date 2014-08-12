@@ -73,9 +73,12 @@
     for (__block KTItem *itemModel in slide.items) {
         
         __block UIView *iv = itemModel.view;
-        iv.alpha = itemModel.startAlpha;
         iv.tag = i; i++;
+        [slideView addSubview:iv];
+        
+        iv.alpha = itemModel.startAlpha;
         iv.clipsToBounds = YES;
+        iv.userInteractionEnabled = YES;
         
         // add tap event
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onButton:)];
@@ -83,6 +86,8 @@
         [iv addGestureRecognizer:tapGestureRecognizer];
         
         __block CGRect originalFr = iv.frame;
+        originalFr.origin = itemModel.startPosition;
+        iv.frame = originalFr;
         
         // zoom out
         if (itemModel.zoomOut > 1.0f) {
@@ -93,8 +98,6 @@
         if (itemModel.zoomIn > 1.0f) {
             iv.transform = CGAffineTransformMakeScale(1, 1);
         }
-        
-        [slideView addSubview:iv];
         
         [UIView animateWithDuration:itemModel.animationDuration
                               delay:0.0f
@@ -141,8 +144,15 @@
     for (int i = 0; i < totalSlides; i++) {
         KTSlide *slide = [self.dataSource animator:self slideForIndex:i];
         
-        //Creating view with background image with scrollview size on its' own position
         UIView *view;
+        // remove the view if there is any
+        view = [self viewWithTag:i + 10];
+        if (view) {
+            [view removeFromSuperview];
+            view = nil;
+        }
+        
+        //Creating view with background image with scrollview size on its' own position
         if (self.hasVerticalScrolling) {
             view = [[UIView alloc] initWithFrame:CGRectMake(0, totalContentSize, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
         } else {
