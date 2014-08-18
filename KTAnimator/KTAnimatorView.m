@@ -116,6 +116,8 @@
                              } else {
                                  originalFr.origin.x = itemModel.endPosition.x;
                                  originalFr.origin.y = itemModel.endPosition.y;
+                                 originalFr.size.height = itemModel.endHeight;
+                                 originalFr.size.width = itemModel.endWidth;
                                  iv.frame = originalFr;
                              }
                              
@@ -341,6 +343,8 @@
         self.delay = 0.0f;
         self.zoomIn = 1.0f;
         self.zoomOut = 1.0f;
+        self.endWidth = aView.frame.size.width;
+        self.endHeight = aView.frame.size.height;
     }
     
     return self;
@@ -376,6 +380,30 @@
                                         endApha:endAlpha
                               animationDuration:animationDuration];
     item.delay = delay;
+    return item;
+}
+
++ (instancetype)itemWithView:(UIView *)aView
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay
+                  startWidth:(CGFloat)startWidth
+                    endWidth:(CGFloat)endWidth
+                 startHeight:(CGFloat)startHeight
+                   endHeight:(CGFloat)endHeight{
+    
+    KTItem *item = [[KTItem alloc] initWithView:aView
+                                  startPosition:startPoint
+                                       endPoint:endPoint
+                                     startAlpha:startAlpha
+                                        endApha:endAlpha
+                              animationDuration:animationDuration];
+    item.delay = delay;
+    item.endWidth = endWidth;
+    item.endHeight = endHeight;
     return item;
 }
 
