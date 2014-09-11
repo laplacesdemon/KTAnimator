@@ -312,6 +312,13 @@
                            backgroundView:backgroundView];
 }
 
++ (instancetype)slideWithItems:(NSArray *)items
+              backgroundSource:(NSString *)backgroundSource
+{
+    UIImageView *bgView = (backgroundSource == nil) ? [UIImageView new] : [[UIImageView alloc] initWithImage:[UIImage imageNamed:backgroundSource]];
+    return [KTSlide slideWithItems:items backgroundView:bgView];
+}
+
 @end
 
 
@@ -377,6 +384,22 @@
                               animationDuration:animationDuration];
     item.delay = delay;
     return item;
+}
+
++ (instancetype)itemWithImageSource:(NSString *)imageSource
+                      startPosition:(CGPoint)startPoint
+                           endPoint:(CGPoint)endPoint
+                         startAlpha:(CGFloat)startAlpha
+                            endApha:(CGFloat)endAlpha
+                  animationDuration:(CGFloat) animationDuration
+{
+    UIImageView *view = (imageSource == nil) ? [UIImageView new] : [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageSource]];
+    return [[KTItem alloc] initWithView:view
+                          startPosition:startPoint
+                               endPoint:endPoint
+                             startAlpha:startAlpha
+                                endApha:endAlpha
+                      animationDuration:animationDuration];
 }
 
 @end

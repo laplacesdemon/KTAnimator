@@ -80,6 +80,9 @@
 + (instancetype)slideWithItems:(NSArray *)items
                 backgroundView:(UIView *)backgroundView;
 
++ (instancetype)slideWithItems:(NSArray *)items
+              backgroundSource:(NSString *)backgroundSource;
+
 @end
 
 
@@ -103,6 +106,11 @@
 @property (nonatomic) CGFloat zoomOut; // defaults to 1.0f
 
 /**
+ *  An optional object to store information in item
+ */
+@property (nonatomic, strong) id itemInfo;
+
+/**
  *  Defaults to 1.0f
  */
 @property (nonatomic) CGFloat animationDuration;
@@ -117,7 +125,7 @@
                     endPoint:(CGPoint)endPoint
                   startAlpha:(CGFloat)startAlpha
                      endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat) animationDuration;
+           animationDuration:(CGFloat)animationDuration;
 
 + (instancetype)itemWithView:(UIView *)view
                startPosition:(CGPoint)startPoint
@@ -133,5 +141,15 @@
                      endApha:(CGFloat)endAlpha
            animationDuration:(CGFloat)animationDuration
                        delay:(CGFloat)delay;
+
+/**
+ *  Creates an KTItem and adds an image view from the given imageSource
+ */
++ (instancetype)itemWithImageSource:(NSString *)imageSource
+                      startPosition:(CGPoint)startPoint
+                           endPoint:(CGPoint)endPoint
+                         startAlpha:(CGFloat)startAlpha
+                            endApha:(CGFloat)endAlpha
+                  animationDuration:(CGFloat) animationDuration;
 
 @end
