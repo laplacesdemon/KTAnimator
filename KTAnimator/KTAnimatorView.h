@@ -120,6 +120,13 @@
  */
 @property (nonatomic) CGFloat delay;
 
+/**
+ * Defaults to object width and height
+ */
+@property (nonatomic) CGFloat endWidth;
+@property (nonatomic) CGFloat endHeight;
+
+
 - (instancetype)initWithView:(UIView *)view
                startPosition:(CGPoint)startPoint
                     endPoint:(CGPoint)endPoint
@@ -151,5 +158,17 @@
                          startAlpha:(CGFloat)startAlpha
                             endApha:(CGFloat)endAlpha
                   animationDuration:(CGFloat) animationDuration;
+
++ (instancetype)itemWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay
+                  startWidth:(CGFloat)startWidth
+                    endWidth:(CGFloat)endWidth
+                 startHeight:(CGFloat)startHeight
+                   endHeight:(CGFloat)endHeight;
 
 @end
