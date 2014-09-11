@@ -65,16 +65,24 @@
 ///////////////////////////////////////////////////////////////
 
 
+/**
+ *  Slide object represents a page that has number of items that 
+ *  are animatable and optionally a background
+ */
 @interface KTSlide : NSObject
 
-@property (nonatomic, strong) NSString *background;
+@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) NSMutableArray *items;
 
 - (instancetype)initWithItems:(NSArray *)items
-             backgroundSource:(NSString *)backgroundSource;
+               backgroundView:(UIView *)backgroundView;
+
++ (instancetype)slideWithItems:(NSArray *)items
+                backgroundView:(UIView *)backgroundView;
 
 + (instancetype)slideWithItems:(NSArray *)items
               backgroundSource:(NSString *)backgroundSource;
+
 @end
 
 
@@ -83,9 +91,13 @@
 ///////////////////////////////////////////////////////////////
 
 
+/**
+ *  An item is a wrapper of the animatable view object with 
+ *  properties that will be used in animation
+ */
 @interface KTItem : NSObject
 
-@property (nonatomic, strong) NSString *src;
+@property (nonatomic, strong) UIView *view;
 @property (nonatomic) CGPoint startPosition;
 @property (nonatomic) CGPoint endPosition;
 @property (nonatomic) CGFloat startAlpha;
@@ -94,22 +106,69 @@
 @property (nonatomic) CGFloat zoomOut; // defaults to 1.0f
 
 /**
+ *  An optional object to store information in item
+ */
+@property (nonatomic, strong) id itemInfo;
+
+/**
  *  Defaults to 1.0f
  */
 @property (nonatomic) CGFloat animationDuration;
 
-- (instancetype)initWithImageSource:(NSString *)source
+/**
+ *  Defaults to 0.0f
+ */
+@property (nonatomic) CGFloat delay;
+
+/**
+ * Defaults to object width and height
+ */
+@property (nonatomic) CGFloat endWidth;
+@property (nonatomic) CGFloat endHeight;
+
+
+- (instancetype)initWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration;
+
++ (instancetype)itemWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration;
+
++ (instancetype)itemWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay;
+
+/**
+ *  Creates an KTItem and adds an image view from the given imageSource
+ */
++ (instancetype)itemWithImageSource:(NSString *)imageSource
                       startPosition:(CGPoint)startPoint
                            endPoint:(CGPoint)endPoint
                          startAlpha:(CGFloat)startAlpha
                             endApha:(CGFloat)endAlpha
                   animationDuration:(CGFloat) animationDuration;
 
-+ (instancetype)itemWithImageSource:(NSString *)source
-                      startPosition:(CGPoint)startPoint
-                           endPoint:(CGPoint)endPoint
-                         startAlpha:(CGFloat)startAlpha
-                            endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat) animationDuration;
++ (instancetype)itemWithView:(UIView *)view
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay
+                  startWidth:(CGFloat)startWidth
+                    endWidth:(CGFloat)endWidth
+                 startHeight:(CGFloat)startHeight
+                   endHeight:(CGFloat)endHeight;
 
 @end

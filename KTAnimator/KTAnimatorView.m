@@ -13,6 +13,7 @@
 
 - (void)_initialize;
 - (void)removeSubViewsFromSlideView:(UIView *)slideView forPage:(NSInteger)page;
+- (void)onButton:(UITapGestureRecognizer *)gestureRecognizer;
 
 @end
 
@@ -71,21 +72,22 @@
     int i = 100;
     for (__block KTItem *itemModel in slide.items) {
         
-        UIImage *im = (itemModel.src == nil) ? [UIImage new] : [UIImage imageNamed:itemModel.src];
-        CGRect itemFrame = CGRectMake(itemModel.startPosition.x,
-                                      itemModel.startPosition.y,
-                                      im.size.width,
-                                      im.size.height);
-        __block UIButton *iv = [[UIButton alloc] initWithFrame:itemFrame];
-        [iv setImage:im forState:UIControlStateNormal];
-        [iv addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
-        [iv setAdjustsImageWhenHighlighted:NO];
-        iv.alpha = itemModel.startAlpha;
+        __block UIView *iv = itemModel.view;
         iv.tag = i; i++;
+        [slideView addSubview:iv];
         
+        iv.alpha = itemModel.startAlpha;
         iv.clipsToBounds = YES;
+        iv.userInteractionEnabled = YES;
+        
+        // add tap event
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onButton:)];
+        tapGestureRecognizer.numberOfTapsRequired = 1;
+        [iv addGestureRecognizer:tapGestureRecognizer];
         
         __block CGRect originalFr = iv.frame;
+        originalFr.origin = itemModel.startPosition;
+        iv.frame = originalFr;
         
         // zoom out
         if (itemModel.zoomOut > 1.0f) {
@@ -97,10 +99,8 @@
             iv.transform = CGAffineTransformMakeScale(1, 1);
         }
         
-        [slideView addSubview:iv];
-        
         [UIView animateWithDuration:itemModel.animationDuration
-                              delay:0.0f
+                              delay:itemModel.delay
                             options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              iv.alpha = itemModel.endAlpha;
@@ -116,6 +116,8 @@
                              } else {
                                  originalFr.origin.x = itemModel.endPosition.x;
                                  originalFr.origin.y = itemModel.endPosition.y;
+                                 originalFr.size.height = itemModel.endHeight;
+                                 originalFr.size.width = itemModel.endWidth;
                                  iv.frame = originalFr;
                              }
                              
@@ -144,19 +146,24 @@
     for (int i = 0; i < totalSlides; i++) {
         KTSlide *slide = [self.dataSource animator:self slideForIndex:i];
         
-        //Creating view with background image with scrollview size on its' own position
         UIView *view;
+        // remove the view if there is any
+        view = [self viewWithTag:i + 10];
+        if (view) {
+            [view removeFromSuperview];
+            view = nil;
+        }
+        
+        //Creating view with background image with scrollview size on its' own position
         if (self.hasVerticalScrolling) {
             view = [[UIView alloc] initWithFrame:CGRectMake(0, totalContentSize, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
         } else {
             view = [[UIView alloc] initWithFrame:CGRectMake(totalContentSize, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
         }
         
-        
-        UIImage *im = (slide.background == nil) ? [UIImage new] : [UIImage imageNamed:slide.background];
-        UIImageView *bgView = [[UIImageView alloc] initWithImage:im];
-        bgView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
-        [view addSubview:bgView];
+        // add the background view
+        if (slide.backgroundView)
+            [view addSubview:slide.backgroundView];
         
         view.tag = i + 10;
         [self addSubview:view];
@@ -219,10 +226,10 @@
     }
 }
 
-- (void)onButton:(UIButton *)sender
+- (void)onButton:(UITapGestureRecognizer *)gestureRecognizer
 {
     KTSlide *slide = [self.dataSource animator:self slideForIndex:self.currentPage];
-    KTItem *item = [slide.items objectAtIndex:sender.tag - 100];
+    KTItem *item = [slide.items objectAtIndex:gestureRecognizer.view.tag - 100];
     
     if ([self.dataSource respondsToSelector:@selector(animator:didSelectItem:slide:atIndex:)]) {
         [self.dataSource animator:self didSelectItem:item slide:slide atIndex:self.currentPage];
@@ -287,24 +294,31 @@
 
 @implementation KTSlide
 
-- (instancetype)initWithItems:(NSArray *)items
-            backgroundSource:(NSString *)backgroundSource
+- (instancetype)initWithItems:(NSArray *)someItems
+               backgroundView:(UIView *)aBackgroundView
 {
     self = [super init];
     
     if(self){
-        self.background = backgroundSource;
-        self.items = [NSMutableArray arrayWithArray:items];
+        self.backgroundView = aBackgroundView;
+        self.items = [NSMutableArray arrayWithArray:someItems];
     }
     
     return self;
 }
 
 + (instancetype)slideWithItems:(NSArray *)items
-              backgroundSource:(NSString *)backgroundSource
+                backgroundView:(UIView *)backgroundView
 {
     return [[KTSlide alloc] initWithItems:items
-                         backgroundSource:backgroundSource];
+                           backgroundView:backgroundView];
+}
+
++ (instancetype)slideWithItems:(NSArray *)items
+              backgroundSource:(NSString *)backgroundSource
+{
+    UIImageView *bgView = (backgroundSource == nil) ? [UIImageView new] : [[UIImageView alloc] initWithImage:[UIImage imageNamed:backgroundSource]];
+    return [KTSlide slideWithItems:items backgroundView:bgView];
 }
 
 @end
@@ -317,42 +331,103 @@
 
 @implementation KTItem
 
-- (instancetype)initWithImageSource:(NSString *)source
-                      startPosition:(CGPoint)startPosition
-                           endPoint:(CGPoint)endPosition
-                         startAlpha:(CGFloat)startAlpha
-                            endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat) animationDuration
+- (instancetype)initWithView:(UIView *)aView
+               startPosition:(CGPoint)startPosition
+                    endPoint:(CGPoint)endPosition
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat) animationDuration
 {
     self = [super init];
     
     if(self){
-        self.src = source;
+        self.view = aView;
         self.startPosition = startPosition;
         self.endPosition = endPosition;
         self.startAlpha = startAlpha;
         self.endAlpha = endAlpha;
         self.animationDuration = animationDuration;
+        self.delay = 0.0f;
         self.zoomIn = 1.0f;
         self.zoomOut = 1.0f;
+        self.endWidth = aView.frame.size.width;
+        self.endHeight = aView.frame.size.height;
     }
     
     return self;
 }
 
-+ (instancetype)itemWithImageSource:(NSString *)source
++ (instancetype)itemWithView:(UIView *)aView
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+{
+    return [[KTItem alloc] initWithView:aView
+                          startPosition:startPoint
+                               endPoint:endPoint
+                             startAlpha:startAlpha
+                                endApha:endAlpha
+                      animationDuration:animationDuration];
+}
+
++ (instancetype)itemWithView:(UIView *)aView
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay
+{
+    KTItem *item = [[KTItem alloc] initWithView:aView
+                                  startPosition:startPoint
+                                       endPoint:endPoint
+                                     startAlpha:startAlpha
+                                        endApha:endAlpha
+                              animationDuration:animationDuration];
+    item.delay = delay;
+    return item;
+}
+
++ (instancetype)itemWithImageSource:(NSString *)imageSource
                       startPosition:(CGPoint)startPoint
                            endPoint:(CGPoint)endPoint
                          startAlpha:(CGFloat)startAlpha
                             endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat)animationDuration
+                  animationDuration:(CGFloat) animationDuration
 {
-    return [[KTItem alloc] initWithImageSource:source
-                                 startPosition:startPoint
-                                      endPoint:endPoint
-                                    startAlpha:startAlpha
-                                       endApha:endAlpha
-                             animationDuration:animationDuration];
+    UIImageView *view = (imageSource == nil) ? [UIImageView new] : [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageSource]];
+    return [[KTItem alloc] initWithView:view
+                          startPosition:startPoint
+                               endPoint:endPoint
+                             startAlpha:startAlpha
+                                endApha:endAlpha
+                      animationDuration:animationDuration];
+}
+
++ (instancetype)itemWithView:(UIView *)aView
+               startPosition:(CGPoint)startPoint
+                    endPoint:(CGPoint)endPoint
+                  startAlpha:(CGFloat)startAlpha
+                     endApha:(CGFloat)endAlpha
+           animationDuration:(CGFloat)animationDuration
+                       delay:(CGFloat)delay
+                  startWidth:(CGFloat)startWidth
+                    endWidth:(CGFloat)endWidth
+                 startHeight:(CGFloat)startHeight
+                   endHeight:(CGFloat)endHeight{
+    
+    KTItem *item = [[KTItem alloc] initWithView:aView
+                                  startPosition:startPoint
+                                       endPoint:endPoint
+                                     startAlpha:startAlpha
+                                        endApha:endAlpha
+                              animationDuration:animationDuration];
+    item.delay = delay;
+    item.endWidth = endWidth;
+    item.endHeight = endHeight;
+    return item;
 }
 
 @end
