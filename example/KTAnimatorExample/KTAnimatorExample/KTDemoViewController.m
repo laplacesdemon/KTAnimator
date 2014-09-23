@@ -14,21 +14,42 @@
 
 @implementation KTDemoViewController
 {
-    KTSlide *slide;
+    NSArray *slides;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        NSArray *items = @[[KTItem itemWithImageSource:@""
-                                         startPosition:CGPointMake(0.0f, 0.0f)
-                                              endPoint:CGPointMake(100.0f, 100.0f)
+        UIView *blueView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+        blueView.backgroundColor = [UIColor blueColor];
+        UIView *redView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+        redView.backgroundColor = [UIColor redColor];
+        UIView *greenView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+        greenView.backgroundColor = [UIColor greenColor];
+        
+        NSArray *pageOneItems = @[[KTItem itemWithView:blueView
+                                  startPosition:CGPointMake(100.0f, 700.0f)
+                                       endPoint:CGPointMake(100.0f, 100.0f)
+                                     startAlpha:0.0f
+                                        endApha:1.0f
+                              animationDuration:1.0f],
+                           [KTItem itemWithView:redView
+                                  startPosition:CGPointMake(400.0f, -700.0f)
+                                       endPoint:CGPointMake(400.0f, 400.0f)
+                                     startAlpha:0.0f
+                                        endApha:1.0f
+                              animationDuration:1.0f]
+                           ];
+        NSArray *pageTwoItems = @[[KTItem itemWithView:greenView
+                                         startPosition:CGPointMake(-300.0f, -300.0f)
+                                              endPoint:CGPointMake(300.0f, 300.0f)
                                             startAlpha:0.0f
                                                endApha:1.0f
                                      animationDuration:1.0f]
-                           ];
-        slide = [KTSlide slideWithItems:items backgroundSource:@""];
+                                  ];
+        slides = @[[KTSlide slideWithItems:pageOneItems backgroundSource:@""],
+                   [KTSlide slideWithItems:pageTwoItems backgroundSource:@""]];
     }
     return self;
 }
@@ -37,20 +58,22 @@
 {
     [super viewDidLoad];
     
-    
+    self.animatorView.dataSource = self;
+    self.animatorView.verticalScrolling = NO;
+    [self.animatorView reloadData];
 }
 
 #pragma mark - animator view data source
 
 - (NSInteger)totalNumberOfSlides
 {
-    return 1;
+    return [slides count];
 }
 
 - (KTSlide *)animator:(KTAnimatorView *)animator
         slideForIndex:(NSInteger)index
 {
-    return slide;
+    return [slides objectAtIndex:index];
 }
 
 - (void)animator:(KTAnimatorView *)animator
@@ -58,7 +81,7 @@
            slide:(KTSlide *)slide
          atIndex:(NSInteger)index
 {
-    NSLog(@"item at index: %d is selected", index);
+    [[[UIAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"item at index: %d is selected", index] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil] show];
 }
 
 
