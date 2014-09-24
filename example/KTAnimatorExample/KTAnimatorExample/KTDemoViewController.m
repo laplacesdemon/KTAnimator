@@ -27,19 +27,51 @@
         redView.backgroundColor = [UIColor redColor];
         UIView *greenView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
         greenView.backgroundColor = [UIColor greenColor];
+        UIView *brownView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+        brownView.backgroundColor = [UIColor brownColor];
+        UIView *cyanView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+        cyanView.backgroundColor = [UIColor cyanColor];
+        
+        // @TODO implemented
+        [blueView.locationOnCompletion:^(KTItem *item) {
+            // return new location to go upon completion
+            return CGPointMake(200, 400);
+        }];
         
         NSArray *pageOneItems = @[[KTItem itemWithView:blueView
                                   startPosition:CGPointMake(100.0f, 700.0f)
                                        endPoint:CGPointMake(100.0f, 100.0f)
                                      startAlpha:0.0f
                                         endApha:1.0f
-                              animationDuration:1.0f],
+                              animationDuration:1.0f
+                                                 delay:0.0f],
                            [KTItem itemWithView:redView
                                   startPosition:CGPointMake(400.0f, -700.0f)
                                        endPoint:CGPointMake(400.0f, 400.0f)
                                      startAlpha:0.0f
                                         endApha:1.0f
-                              animationDuration:1.0f]
+                              animationDuration:1.0f delay:1.0f],
+                                  
+                                  [KTItem itemWithView:greenView
+                                         startPosition:CGPointMake(400.0f, -700.0f)
+                                              endPoint:CGPointMake(100.0f, 100.0f)
+                                            startAlpha:0.0f
+                                               endApha:1.0f
+                                     animationDuration:1.0f delay:2.0f],
+                                  
+                                  [KTItem itemWithView:brownView
+                                         startPosition:CGPointMake(400.0f, -700.0f)
+                                              endPoint:CGPointMake(600.0f, 600.0f)
+                                            startAlpha:0.0f
+                                               endApha:1.0f
+                                     animationDuration:1.0f delay:3.0f],
+                                  
+                                  [KTItem itemWithView:cyanView
+                                         startPosition:CGPointMake(400.0f, -700.0f)
+                                              endPoint:CGPointMake(700.0f, 700.0f)
+                                            startAlpha:0.0f
+                                               endApha:1.0f
+                                     animationDuration:1.0f delay:4.0f]
                            ];
         NSArray *pageTwoItems = @[[KTItem itemWithView:greenView
                                          startPosition:CGPointMake(-300.0f, -300.0f)
