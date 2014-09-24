@@ -32,12 +32,6 @@
         UIView *cyanView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
         cyanView.backgroundColor = [UIColor cyanColor];
         
-        // @TODO implemented
-        [blueView.locationOnCompletion:^(KTItem *item) {
-            // return new location to go upon completion
-            return CGPointMake(200, 400);
-        }];
-        
         NSArray *pageOneItems = @[[KTItem itemWithView:blueView
                                   startPosition:CGPointMake(100.0f, 700.0f)
                                        endPoint:CGPointMake(100.0f, 100.0f)
