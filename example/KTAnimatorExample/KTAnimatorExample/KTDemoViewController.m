@@ -34,11 +34,9 @@
         
         NSArray *pageOneItems = @[[KTItem itemWithView:blueView
                                   startPosition:CGPointMake(100.0f, 700.0f)
-                                       endPoint:CGPointMake(100.0f, 100.0f)
                                      startAlpha:0.0f
-                                        endApha:1.0f
-                              animationDuration:1.0f
-                                                 delay:0.0f],
+                            animationProperties:[KTItemAnimationProperties ]
+                                   ],
                            [KTItem itemWithView:redView
                                   startPosition:CGPointMake(400.0f, -700.0f)
                                        endPoint:CGPointMake(400.0f, 400.0f)

@@ -163,6 +163,16 @@
 @property (nonatomic) NSArray *alphas;
 @property (nonatomic) NSArray *delays;
 
+- (instancetype)initWithEndPositions:(NSArray *)endPositions
+                  animationDurations:(NSArray *)animationDurations
+                              alphas:(NSArray *)alphas
+                               delay:(NSArray *)delays;
+
++ (instancetype)initWithEndPositions:(NSArray *)endPositions
+                  animationDurations:(NSArray *)animationDurations
+                              alphas:(NSArray *)alphas
+                               delay:(NSArray *)delays;
+
 @end
 
 

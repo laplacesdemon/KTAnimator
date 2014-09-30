@@ -383,18 +383,14 @@
 
 + (instancetype)itemWithImageSource:(NSString *)imageSource
                       startPosition:(CGPoint)startPoint
-                           endPoint:(CGPoint)endPoint
                          startAlpha:(CGFloat)startAlpha
-                            endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat) animationDuration
+                animationProperties:(KTItemAnimationProperties *)animationProperties
 {
     UIImageView *view = (imageSource == nil) ? [UIImageView new] : [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageSource]];
     return [[KTItem alloc] initWithView:view
                           startPosition:startPoint
-                               endPoint:endPoint
                              startAlpha:startAlpha
-                                endApha:endAlpha
-                      animationDuration:animationDuration];
+                    animationProperties:animationProperties];
 }
 
 + (instancetype)itemWithView:(UIView *)aView
@@ -410,10 +406,42 @@
                                   startPosition:startPoint
                                      startAlpha:startAlpha
                             animationProperties:animationProperties];
-    item.delay = [[animationProperties.delays objectAtIndex:0] floatValue];
     item.endWidth = endWidth;
     item.endHeight = endHeight;
     return item;
 }
 
 @end
+
+
+@implementation KTItemAnimationProperties
+
+- (instancetype)initWithEndPositions:(NSArray *)endPositions
+                  animationDurations:(NSArray *)animationDurations
+                              alphas:(NSArray *)alphas
+                               delay:(NSArray *)delays{
+    self = [super init];
+    
+    if(self){
+        self.endPositions = endPositions;
+        self.animationDurations = animationDurations;
+        self.alphas = alphas;
+        self.delays = delays;
+    }
+    
+    return self;
+}
+
++ (instancetype)initWithEndPositions:(NSArray *)endPositions
+                  animationDurations:(NSArray *)animationDurations
+                              alphas:(NSArray *)alphas
+                               delay:(NSArray *)delays{
+    return [self initWithEndPositions:endPositions
+                   animationDurations:animationDurations
+                               alphas:alphas
+                                delay:delays];
+}
+
+@end
+
+
