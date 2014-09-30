@@ -101,7 +101,7 @@
         }
         
         //Animate item
-        [self animateWithItem:itemModel view:iv animations:itemModel.animationProperties animationQueNumber:0];
+        [self animateWithItem:itemModel view:iv originalFrame:originalFr animations:itemModel.animationProperties animationQueNumber:0];
         
     }
     
@@ -118,36 +118,42 @@
 
 -(void)animateWithItem:(KTItem *)itemModel
                   view:(UIView *)iv
+         originalFrame:(CGRect)originalFrame
             animations:(KTItemAnimationProperties *)animations
     animationQueNumber:(NSInteger)animationQueNumber{
     
-        [UIView animateWithDuration:[[animations.animationDurations objectAtIndex:animationOrderNumber] floatValue]
-                              delay:[[animations.delays objectAtIndex:animationQueNumber] floatValue]
-                            options:UIViewAnimationOptionAllowUserInteraction
-                         animations:^{
-                             iv.alpha = [[animations.alphas objectAtIndex:animationQueNumber] floatValue];
+    [UIView animateWithDuration:[[animations.animationDurations objectAtIndex:animationOrderNumber] floatValue]
+                          delay:[[animations.delays objectAtIndex:animationQueNumber] floatValue]
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         iv.alpha = [[animations.alphas objectAtIndex:animationQueNumber] floatValue];
+                         
+                         // zoom out
+                         if (itemModel.zoomOut > 1.0f) {
+                             iv.transform = CGAffineTransformMakeScale(1,1);
+                         } else
                              
-                             // zoom out
-                             if (itemModel.zoomOut > 1.0f) {
-                                 iv.transform = CGAffineTransformMakeScale(1,1);
-                             } else
-                                 
-                                 // zoom in
-                                 if (itemModel.zoomIn > 1.0f) {
-                                     iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn, itemModel.zoomIn);
-                                 } else {
-                                     originalFr.origin.x = [animations.endPositions objectAtIndex:animationQueNumber];
-                                     originalFr.origin.y = itemModel.endPosition.y;
-                                     originalFr.size.height = itemModel.endHeight;
-                                     originalFr.size.width = itemModel.endWidth;
-                                     iv.frame = originalFr;
-                                 }
-                             
-                         } completion:^(BOOL finished) {
-                             //
-                         }];
-    
-    
+                             // zoom in
+                             if (itemModel.zoomIn > 1.0f) {
+                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn, itemModel.zoomIn);
+                             } else {
+                                 CGRect originalFr = originalFrame;
+                                 originalFr.origin.x = [[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].x;
+                                 originalFr.origin.y = [[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].y;
+                                 originalFr.size.height = itemModel.endHeight;
+                                 originalFr.size.width = itemModel.endWidth;
+                                 iv.frame = originalFr;
+                             }
+                         
+                     } completion:^(BOOL finished) {
+                         if (animations.endPositions.count > 1 && animationQueNumber < (animations.endPositions.count-1) ) {
+                             NSInteger queUpdate = animationQueNumber+1;
+                             [self animateWithItem:itemModel view:iv
+                                     originalFrame:CGRectMake([[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].x, [[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].y, itemModel.endWidth, itemModel.endHeight)
+                                        animations:animations
+                                animationQueNumber:queUpdate];
+                         }
+                     }];
 }
 
 - (void)reloadData
