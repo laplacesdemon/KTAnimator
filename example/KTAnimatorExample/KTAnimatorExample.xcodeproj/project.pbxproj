@@ -214,6 +214,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Katu;
 				TargetAttributes = {
+					675A1078198BC60C00873880 = {
+						DevelopmentTeam = HF7UE5363B;
+					};
 					675A1093198BC60C00873880 = {
 						TestTargetID = 675A1078198BC60C00873880;
 					};
@@ -385,9 +388,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KTAnimatorExample/KTAnimatorExample-Prefix.pch";
 				INFOPLIST_FILE = "KTAnimatorExample/KTAnimatorExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -398,9 +403,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KTAnimatorExample/KTAnimatorExample-Prefix.pch";
 				INFOPLIST_FILE = "KTAnimatorExample/KTAnimatorExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -465,6 +472,7 @@
 				675A10A7198BC60C00873880 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		675A10A8198BC60C00873880 /* Build configuration list for PBXNativeTarget "KTAnimatorExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +481,7 @@
 				675A10AA198BC60C00873880 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

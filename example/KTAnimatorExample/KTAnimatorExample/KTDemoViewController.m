@@ -35,42 +35,49 @@
         NSArray *pageOneItems = @[[KTItem itemWithView:blueView
                                   startPosition:CGPointMake(100.0f, 700.0f)
                                      startAlpha:0.0f
-                            animationProperties:[KTItemAnimationProperties ]
-                                   ],
+                                   animationProperties:[KTItemAnimationProperties initWithEndPositions:@[[KTCGPoint initWithCGPoint:CGPointMake(20.f, 70.f)], [KTCGPoint initWithCGPoint:CGPointMake(100.f, 700.f)]]
+                                                                                    animationDurations:@[@1.f, @2.f]
+                                                                                                alphas:@[@1.f, @.5]
+                                                                                                 delay:@[@0.f, @1.5f]]],
                            [KTItem itemWithView:redView
                                   startPosition:CGPointMake(400.0f, -700.0f)
-                                       endPoint:CGPointMake(400.0f, 400.0f)
                                      startAlpha:0.0f
-                                        endApha:1.0f
-                              animationDuration:1.0f delay:1.0f],
+                            animationProperties:[KTItemAnimationProperties initWithEndPositions:@[[KTCGPoint initWithCGPoint:CGPointMake(20.f, 70.f)], [KTCGPoint initWithCGPoint:CGPointMake(100.f, 700.f)]]
+                                                                             animationDurations:@[@1.f, @2.f]
+                                                                                         alphas:@[@1.f, @.5]
+                                                                                          delay:@[@0.f, @1.5f]]],
                                   
                                   [KTItem itemWithView:greenView
                                          startPosition:CGPointMake(400.0f, -700.0f)
-                                              endPoint:CGPointMake(100.0f, 100.0f)
                                             startAlpha:0.0f
-                                               endApha:1.0f
-                                     animationDuration:1.0f delay:2.0f],
+                                   animationProperties:[KTItemAnimationProperties initWithEndPositions:@[[KTCGPoint initWithCGPoint:CGPointMake(20.f, 70.f)], [KTCGPoint initWithCGPoint:CGPointMake(100.f, 700.f)]]
+                                                                                                            animationDurations:@[@1.f, @2.f]
+                                                                                                                        alphas:@[@1.f, @.5]
+                                                                                                                         delay:@[@0.f, @1.5f]]],
                                   
                                   [KTItem itemWithView:brownView
                                          startPosition:CGPointMake(400.0f, -700.0f)
-                                              endPoint:CGPointMake(600.0f, 600.0f)
                                             startAlpha:0.0f
-                                               endApha:1.0f
-                                     animationDuration:1.0f delay:3.0f],
+                                   animationProperties:[KTItemAnimationProperties initWithEndPositions:@[[KTCGPoint initWithCGPoint:CGPointMake(20.f, 70.f)], [KTCGPoint initWithCGPoint:CGPointMake(100.f, 700.f)]]
+                                                                                    animationDurations:@[@1.f, @2.f]
+                                                                                                alphas:@[@1.f, @.5]
+                                                                                                 delay:@[@0.f, @1.5f]]],
                                   
                                   [KTItem itemWithView:cyanView
                                          startPosition:CGPointMake(400.0f, -700.0f)
-                                              endPoint:CGPointMake(700.0f, 700.0f)
                                             startAlpha:0.0f
-                                               endApha:1.0f
-                                     animationDuration:1.0f delay:4.0f]
+                                   animationProperties:[KTItemAnimationProperties initWithEndPositions:@[[KTCGPoint initWithCGPoint:CGPointMake(20.f, 70.f)], [KTCGPoint initWithCGPoint:CGPointMake(100.f, 700.f)]]
+                                                                                    animationDurations:@[@1.f, @2.f]
+                                                                                                alphas:@[@1.f, @.5]
+                                                                                                 delay:@[@0.f, @1.5f]]]
                            ];
         NSArray *pageTwoItems = @[[KTItem itemWithView:greenView
                                          startPosition:CGPointMake(-300.0f, -300.0f)
-                                              endPoint:CGPointMake(300.0f, 300.0f)
                                             startAlpha:0.0f
-                                               endApha:1.0f
-                                     animationDuration:1.0f]
+                                   animationProperties:[KTItemAnimationProperties initWithEndPositions:@[[KTCGPoint initWithCGPoint:CGPointMake(20.f, 70.f)], [KTCGPoint initWithCGPoint:CGPointMake(100.f, 700.f)]]
+                                                                                    animationDurations:@[@1.f, @2.f]
+                                                                                                alphas:@[@1.f, @.5]
+                                                                                                 delay:@[@0.f, @1.5f]]]
                                   ];
         slides = @[[KTSlide slideWithItems:pageOneItems backgroundSource:@""],
                    [KTSlide slideWithItems:pageTwoItems backgroundSource:@""]];

@@ -19,7 +19,7 @@
 #define kBottomOutside (CGPoint){512,868}
 
 
-@protocol KTAnimatorViewDataSource;/Users/macair/Documents/Git/KTAnimator/KTAnimator/KTAnimatorView.m
+@protocol KTAnimatorViewDataSource;
 @class KTSlide, KTItem;
 
 @interface KTAnimatorView : UIScrollView
@@ -178,6 +178,11 @@
 
 @interface KTCGPoint : NSObject
 @property (nonatomic) CGPoint endPoint;
+
+- (instancetype)initWithCGPoint:(CGPoint)point;
+
++ (instancetype)initWithCGPoint:(CGPoint)point;
+
 @end
 
 

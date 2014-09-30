@@ -445,3 +445,25 @@
 @end
 
 
+@implementation KTCGPoint
+
+- (instancetype)initWithCGPoint:(CGPoint)point{
+    
+    self = [super init];
+    
+    if (self) {
+        self.endPoint = point;
+    }
+    
+    return self;
+}
+
++ (instancetype)initWithCGPoint:(CGPoint)point{
+    
+    return [self initWithCGPoint:point];
+}
+
+
+@end
+
+
