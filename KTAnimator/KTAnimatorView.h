@@ -19,7 +19,7 @@
 #define kBottomOutside (CGPoint){512,868}
 
 
-@protocol KTAnimatorViewDataSource;
+@protocol KTAnimatorViewDataSource;/Users/macair/Documents/Git/KTAnimator/KTAnimator/KTAnimatorView.m
 @class KTSlide, KTItem;
 
 @interface KTAnimatorView : UIScrollView
@@ -93,15 +93,16 @@
 
 /**
  *  An item is a wrapper of the animatable view object with 
- *  properties that will be used in animation
+ *  propertiesthat will be used in animation
  */
+@class KTItemAnimationProperties;
+
 @interface KTItem : NSObject
 
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic) CGPoint startPosition;
-@property (nonatomic) CGPoint endPosition;
 @property (nonatomic) CGFloat startAlpha;
-@property (nonatomic) CGFloat endAlpha;
+@property (nonatomic) KTItemAnimationProperties *animationProperties;
 @property (nonatomic) CGFloat zoomIn; // defaults to 1.0f
 @property (nonatomic) CGFloat zoomOut; // defaults to 1.0f
 
@@ -109,16 +110,6 @@
  *  An optional object to store information in item
  */
 @property (nonatomic, strong) id itemInfo;
-
-/**
- *  Defaults to 1.0f
- */
-@property (nonatomic) CGFloat animationDuration;
-
-/**
- *  Defaults to 0.0f
- */
-@property (nonatomic) CGFloat delay;
 
 /**
  * Defaults to object width and height
@@ -129,46 +120,54 @@
 
 - (instancetype)initWithView:(UIView *)view
                startPosition:(CGPoint)startPoint
-                    endPoint:(CGPoint)endPoint
                   startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat)animationDuration;
+         animationProperties:(KTItemAnimationProperties *)animationProperties;
 
 + (instancetype)itemWithView:(UIView *)view
                startPosition:(CGPoint)startPoint
-                    endPoint:(CGPoint)endPoint
                   startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat)animationDuration;
-
-+ (instancetype)itemWithView:(UIView *)view
-               startPosition:(CGPoint)startPoint
-                    endPoint:(CGPoint)endPoint
-                  startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat)animationDuration
-                       delay:(CGFloat)delay;
+         animationProperties:(KTItemAnimationProperties *)animationProperties;
 
 /**
  *  Creates an KTItem and adds an image view from the given imageSource
  */
 + (instancetype)itemWithImageSource:(NSString *)imageSource
                       startPosition:(CGPoint)startPoint
-                           endPoint:(CGPoint)endPoint
                          startAlpha:(CGFloat)startAlpha
-                            endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat) animationDuration;
+                animationProperties:(KTItemAnimationProperties *)animationProperties;
 
 + (instancetype)itemWithView:(UIView *)view
                startPosition:(CGPoint)startPoint
-                    endPoint:(CGPoint)endPoint
                   startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat)animationDuration
-                       delay:(CGFloat)delay
+         animationProperties:(KTItemAnimationProperties *)animationProperties
                   startWidth:(CGFloat)startWidth
                     endWidth:(CGFloat)endWidth
                  startHeight:(CGFloat)startHeight
                    endHeight:(CGFloat)endHeight;
 
 @end
+
+///////////////////////////////////////////////////////////////
+//                                                           //
+///////////////////////////////////////////////////////////////
+
+
+/**
+ *  Item animation properties that using for chain animation
+ */
+@class KTCGPoint;
+@interface KTItemAnimationProperties : NSObject
+
+@property (nonatomic) NSArray *endPositions;
+@property (nonatomic) NSArray *animationDurations;
+@property (nonatomic) NSArray *alphas;
+@property (nonatomic) NSArray *delays;
+
+@end
+
+
+@interface KTCGPoint : NSObject
+@property (nonatomic) CGPoint endPoint;
+@end
+
+
