@@ -436,6 +436,7 @@
                   animationDurations:(NSArray *)animationDurations
                               alphas:(NSArray *)alphas
                                delay:(NSArray *)delays{
+    
     return [self initWithEndPositions:endPositions
                    animationDurations:animationDurations
                                alphas:alphas
