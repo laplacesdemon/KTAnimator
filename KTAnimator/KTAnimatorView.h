@@ -155,7 +155,6 @@
 /**
  *  Item animation properties that using for chain animation
  */
-@class KTCGPoint;
 @interface KTItemAnimationProperties : NSObject
 
 @property (nonatomic) NSArray *endPositions;
@@ -175,14 +174,5 @@
 
 @end
 
-
-@interface KTCGPoint : NSObject
-@property (nonatomic) CGPoint endPoint;
-
-- (instancetype)initWithCGPoint:(CGPoint)point;
-
-+ (instancetype)initWithCGPoint:(CGPoint)point;
-
-@end
 
 
