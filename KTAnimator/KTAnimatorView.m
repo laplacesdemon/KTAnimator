@@ -437,10 +437,10 @@
                               alphas:(NSArray *)alphas
                                delay:(NSArray *)delays{
     
-    return [self initWithEndPositions:endPositions
-                   animationDurations:animationDurations
-                               alphas:alphas
-                                delay:delays];
+    return [[KTItemAnimationProperties alloc] initWithEndPositions:endPositions
+                                                animationDurations:animationDurations
+                                                            alphas:alphas
+                                                             delay:delays];
 }
 
 @end
