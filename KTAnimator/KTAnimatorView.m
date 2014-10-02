@@ -71,59 +71,7 @@
     
     int i = 100;
     for (__block KTItem *itemModel in slide.items) {
-        
-        __block UIView *iv = itemModel.view;
-        iv.tag = i; i++;
-        [slideView addSubview:iv];
-        
-        iv.alpha = itemModel.startAlpha;
-        iv.clipsToBounds = YES;
-        iv.userInteractionEnabled = YES;
-        
-        // add tap event
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onButton:)];
-        tapGestureRecognizer.numberOfTapsRequired = 1;
-        [iv addGestureRecognizer:tapGestureRecognizer];
-        
-        __block CGRect originalFr = iv.frame;
-        originalFr.origin = itemModel.startPosition;
-        iv.frame = originalFr;
-        
-        // zoom out
-        if (itemModel.zoomOut > 1.0f) {
-            iv.transform = CGAffineTransformMakeScale(itemModel.zoomOut,itemModel.zoomOut);
-        } else
-        
-        // zoom in
-        if (itemModel.zoomIn > 1.0f) {
-            iv.transform = CGAffineTransformMakeScale(1, 1);
-        }
-        
-        [UIView animateWithDuration:itemModel.animationDuration
-                              delay:itemModel.delay
-                            options:UIViewAnimationOptionAllowUserInteraction
-                         animations:^{
-                             iv.alpha = itemModel.endAlpha;
-                             
-                             // zoom out
-                             if (itemModel.zoomOut > 1.0f) {
-                                 iv.transform = CGAffineTransformMakeScale(1,1);
-                             } else
-                             
-                             // zoom in
-                             if (itemModel.zoomIn > 1.0f) {
-                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn, itemModel.zoomIn);
-                             } else {
-                                 originalFr.origin.x = itemModel.endPosition.x;
-                                 originalFr.origin.y = itemModel.endPosition.y;
-                                 originalFr.size.height = itemModel.endHeight;
-                                 originalFr.size.width = itemModel.endWidth;
-                                 iv.frame = originalFr;
-                             }
-                             
-                         } completion:^(BOOL finished) {
-                             //
-                         }];
+        [self animateWithItem:itemModel atIndex:i inSlideView:slideView];
     }
     
     // delete views of previous page
@@ -135,6 +83,64 @@
     // delete views of next page
     UIView *nextSlideView = [self viewWithTag:11 + self.currentPage];
     [self removeSubViewsFromSlideView:nextSlideView forPage:self.currentPage + 1];
+}
+
+- (void)animateWithItem:(KTItem *)itemModel atIndex:(NSInteger)i inSlideView:(UIView *)slideView
+{
+    __block UIView *iv = itemModel.view;
+    iv.tag = i; i++;
+    [slideView addSubview:iv];
+    
+    iv.alpha = itemModel.startAlpha;
+    iv.clipsToBounds = YES;
+    iv.userInteractionEnabled = YES;
+    
+    // add tap event
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onButton:)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    [iv addGestureRecognizer:tapGestureRecognizer];
+    
+    __block CGRect originalFr = iv.frame;
+    originalFr.origin = itemModel.startPosition;
+    iv.frame = originalFr;
+    
+    // zoom out
+    if (itemModel.zoomOut > 1.0f) {
+        iv.transform = CGAffineTransformMakeScale(itemModel.zoomOut,itemModel.zoomOut);
+    } else
+        
+        // zoom in
+        if (itemModel.zoomIn > 1.0f) {
+            iv.transform = CGAffineTransformMakeScale(1, 1);
+        }
+    
+    [UIView animateWithDuration:itemModel.animationDuration
+                          delay:itemModel.delay
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         iv.alpha = itemModel.endAlpha;
+                         
+                         // zoom out
+                         if (itemModel.zoomOut > 1.0f) {
+                             iv.transform = CGAffineTransformMakeScale(1,1);
+                         } else
+                             
+                             // zoom in
+                             if (itemModel.zoomIn > 1.0f) {
+                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn, itemModel.zoomIn);
+                             } else {
+                                 originalFr.origin.x = itemModel.endPosition.x;
+                                 originalFr.origin.y = itemModel.endPosition.y;
+                                 originalFr.size.height = itemModel.endHeight;
+                                 originalFr.size.width = itemModel.endWidth;
+                                 iv.frame = originalFr;
+                             }
+                         
+                     } completion:^(BOOL finished) {
+                         if (itemModel.subItem) {
+                             [self animateWithItem:itemModel.subItem atIndex:i + 100 inSlideView:slideView];
+                         }
+                     }];
 }
 
 - (void)reloadData

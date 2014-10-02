@@ -32,19 +32,36 @@
         UIView *cyanView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
         cyanView.backgroundColor = [UIColor cyanColor];
         
-        NSArray *pageOneItems = @[[KTItem itemWithView:blueView
-                                  startPosition:CGPointMake(100.0f, 700.0f)
-                                       endPoint:CGPointMake(100.0f, 100.0f)
-                                     startAlpha:0.0f
-                                        endApha:1.0f
-                              animationDuration:1.0f
-                                                 delay:0.0f],
-                           [KTItem itemWithView:redView
-                                  startPosition:CGPointMake(400.0f, -700.0f)
-                                       endPoint:CGPointMake(400.0f, 400.0f)
-                                     startAlpha:0.0f
-                                        endApha:1.0f
-                              animationDuration:1.0f delay:1.0f],
+        KTItem *chainedItem = [KTItem itemWithView:blueView
+               startPosition:CGPointMake(100.0f, 700.0f)
+                    endPoint:CGPointMake(100.0f, 100.0f)
+                  startAlpha:0.0f
+                     endApha:1.0f
+           animationDuration:1.0f
+                       delay:0.0f];
+        chainedItem.subItem = [KTItem itemWithView:blueView
+                                     startPosition:CGPointMake(100.0f, 100.0f)
+                                          endPoint:CGPointMake(100.0f, 200.0f)
+                                        startAlpha:1.0f
+                                           endApha:1.0f
+                                 animationDuration:1.0f
+                                             delay:0.0f];
+        chainedItem.subItem.subItem = [KTItem itemWithView:blueView
+                                             startPosition:CGPointMake(100.0f, 200.0f)
+                                                  endPoint:CGPointMake(200.0f, 200.0f)
+                                                startAlpha:1.0f
+                                                   endApha:1.0f
+                                         animationDuration:1.0f
+                                                     delay:0.0f];
+        
+        
+        NSArray *pageOneItems = @[chainedItem,
+                                  [KTItem itemWithView:redView
+                                         startPosition:CGPointMake(400.0f, -700.0f)
+                                              endPoint:CGPointMake(400.0f, 400.0f)
+                                            startAlpha:0.0f
+                                               endApha:1.0f
+                                     animationDuration:1.0f delay:1.0f],
                                   
                                   [KTItem itemWithView:greenView
                                          startPosition:CGPointMake(400.0f, -700.0f)
@@ -66,7 +83,7 @@
                                             startAlpha:0.0f
                                                endApha:1.0f
                                      animationDuration:1.0f delay:4.0f]
-                           ];
+                                  ];
         NSArray *pageTwoItems = @[[KTItem itemWithView:greenView
                                          startPosition:CGPointMake(-300.0f, -300.0f)
                                               endPoint:CGPointMake(300.0f, 300.0f)

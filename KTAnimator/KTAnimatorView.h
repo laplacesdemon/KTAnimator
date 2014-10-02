@@ -106,6 +106,12 @@
 @property (nonatomic) CGFloat zoomOut; // defaults to 1.0f
 
 /**
+ *  Another item to be triggerred after the current item's animation
+ *  is finalized.
+ */
+@property (nonatomic, strong) KTItem *subItem;
+
+/**
  *  An optional object to store information in item
  */
 @property (nonatomic, strong) id itemInfo;
