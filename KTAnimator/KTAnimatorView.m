@@ -365,6 +365,7 @@
         self.zoomOut = 1.0f;
         self.endWidth = aView.frame.size.width;
         self.endHeight = aView.frame.size.height;
+        self.animationProperties = animationProperties;
     }
     
     return self;
