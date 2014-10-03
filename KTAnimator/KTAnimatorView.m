@@ -20,6 +20,7 @@
 @implementation KTAnimatorView
 {
     NSInteger _currentPage;
+    NSInteger animationOrderNumber;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -99,31 +100,9 @@
             iv.transform = CGAffineTransformMakeScale(1, 1);
         }
         
-        [UIView animateWithDuration:itemModel.animationDuration
-                              delay:itemModel.delay
-                            options:UIViewAnimationOptionAllowUserInteraction
-                         animations:^{
-                             iv.alpha = itemModel.endAlpha;
-                             
-                             // zoom out
-                             if (itemModel.zoomOut > 1.0f) {
-                                 iv.transform = CGAffineTransformMakeScale(1,1);
-                             } else
-                             
-                             // zoom in
-                             if (itemModel.zoomIn > 1.0f) {
-                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn, itemModel.zoomIn);
-                             } else {
-                                 originalFr.origin.x = itemModel.endPosition.x;
-                                 originalFr.origin.y = itemModel.endPosition.y;
-                                 originalFr.size.height = itemModel.endHeight;
-                                 originalFr.size.width = itemModel.endWidth;
-                                 iv.frame = originalFr;
-                             }
-                             
-                         } completion:^(BOOL finished) {
-                             //
-                         }];
+        //Animate item
+        [self animateWithItem:itemModel view:iv originalFrame:originalFr animations:itemModel.animationProperties animationQueNumber:0];
+        
     }
     
     // delete views of previous page
@@ -135,6 +114,46 @@
     // delete views of next page
     UIView *nextSlideView = [self viewWithTag:11 + self.currentPage];
     [self removeSubViewsFromSlideView:nextSlideView forPage:self.currentPage + 1];
+}
+
+-(void)animateWithItem:(KTItem *)itemModel
+                  view:(UIView *)iv
+         originalFrame:(CGRect)originalFrame
+            animations:(KTItemAnimationProperties *)animations
+    animationQueNumber:(NSInteger)animationQueNumber{
+    
+    [UIView animateWithDuration:[[animations.animationDurations objectAtIndex:animationOrderNumber] floatValue]
+                          delay:[[animations.delays objectAtIndex:animationQueNumber] floatValue]
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         iv.alpha = [[animations.alphas objectAtIndex:animationQueNumber] floatValue];
+                         
+                         // zoom out
+                         if (itemModel.zoomOut > 1.0f) {
+                             iv.transform = CGAffineTransformMakeScale(1,1);
+                         } else
+                             
+                             // zoom in
+                             if (itemModel.zoomIn > 1.0f) {
+                                 iv.transform = CGAffineTransformMakeScale(itemModel.zoomIn, itemModel.zoomIn);
+                             } else {
+                                 CGRect originalFr = originalFrame;
+                                 originalFr.origin.x = [[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].x;
+                                 originalFr.origin.y = [[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].y;
+                                 originalFr.size.height = itemModel.endHeight;
+                                 originalFr.size.width = itemModel.endWidth;
+                                 iv.frame = originalFr;
+                             }
+                         
+                     } completion:^(BOOL finished) {
+                         if (animations.endPositions.count > 1 && animationQueNumber < (animations.endPositions.count-1) ) {
+                             NSInteger queUpdate = animationQueNumber+1;
+                             [self animateWithItem:itemModel view:iv
+                                     originalFrame:CGRectMake([[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].x, [[animations.endPositions objectAtIndex:animationQueNumber] CGPointValue].y, itemModel.endWidth, itemModel.endHeight)
+                                        animations:animations
+                                animationQueNumber:queUpdate];
+                         }
+                     }];
 }
 
 - (void)reloadData
@@ -333,25 +352,20 @@
 
 - (instancetype)initWithView:(UIView *)aView
                startPosition:(CGPoint)startPosition
-                    endPoint:(CGPoint)endPosition
                   startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat) animationDuration
+         animationProperties:(KTItemAnimationProperties *)animationProperties
 {
     self = [super init];
     
     if(self){
         self.view = aView;
         self.startPosition = startPosition;
-        self.endPosition = endPosition;
         self.startAlpha = startAlpha;
-        self.endAlpha = endAlpha;
-        self.animationDuration = animationDuration;
-        self.delay = 0.0f;
         self.zoomIn = 1.0f;
         self.zoomOut = 1.0f;
         self.endWidth = aView.frame.size.width;
         self.endHeight = aView.frame.size.height;
+        self.animationProperties = animationProperties;
     }
     
     return self;
@@ -359,60 +373,31 @@
 
 + (instancetype)itemWithView:(UIView *)aView
                startPosition:(CGPoint)startPoint
-                    endPoint:(CGPoint)endPoint
                   startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat)animationDuration
+         animationProperties:(KTItemAnimationProperties *)animationProperties
 {
     return [[KTItem alloc] initWithView:aView
                           startPosition:startPoint
-                               endPoint:endPoint
                              startAlpha:startAlpha
-                                endApha:endAlpha
-                      animationDuration:animationDuration];
-}
-
-+ (instancetype)itemWithView:(UIView *)aView
-               startPosition:(CGPoint)startPoint
-                    endPoint:(CGPoint)endPoint
-                  startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat)animationDuration
-                       delay:(CGFloat)delay
-{
-    KTItem *item = [[KTItem alloc] initWithView:aView
-                                  startPosition:startPoint
-                                       endPoint:endPoint
-                                     startAlpha:startAlpha
-                                        endApha:endAlpha
-                              animationDuration:animationDuration];
-    item.delay = delay;
-    return item;
+                    animationProperties:animationProperties];
 }
 
 + (instancetype)itemWithImageSource:(NSString *)imageSource
                       startPosition:(CGPoint)startPoint
-                           endPoint:(CGPoint)endPoint
                          startAlpha:(CGFloat)startAlpha
-                            endApha:(CGFloat)endAlpha
-                  animationDuration:(CGFloat) animationDuration
+                animationProperties:(KTItemAnimationProperties *)animationProperties
 {
     UIImageView *view = (imageSource == nil) ? [UIImageView new] : [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageSource]];
     return [[KTItem alloc] initWithView:view
                           startPosition:startPoint
-                               endPoint:endPoint
                              startAlpha:startAlpha
-                                endApha:endAlpha
-                      animationDuration:animationDuration];
+                    animationProperties:animationProperties];
 }
 
 + (instancetype)itemWithView:(UIView *)aView
                startPosition:(CGPoint)startPoint
-                    endPoint:(CGPoint)endPoint
                   startAlpha:(CGFloat)startAlpha
-                     endApha:(CGFloat)endAlpha
-           animationDuration:(CGFloat)animationDuration
-                       delay:(CGFloat)delay
+         animationProperties:(KTItemAnimationProperties *)animationProperties
                   startWidth:(CGFloat)startWidth
                     endWidth:(CGFloat)endWidth
                  startHeight:(CGFloat)startHeight
@@ -420,14 +405,46 @@
     
     KTItem *item = [[KTItem alloc] initWithView:aView
                                   startPosition:startPoint
-                                       endPoint:endPoint
                                      startAlpha:startAlpha
-                                        endApha:endAlpha
-                              animationDuration:animationDuration];
-    item.delay = delay;
+                            animationProperties:animationProperties];
     item.endWidth = endWidth;
     item.endHeight = endHeight;
     return item;
 }
 
 @end
+
+
+@implementation KTItemAnimationProperties
+
+- (instancetype)initWithEndPositions:(NSArray *)endPositions
+                  animationDurations:(NSArray *)animationDurations
+                              alphas:(NSArray *)alphas
+                               delay:(NSArray *)delays{
+    self = [super init];
+    
+    if(self){
+        self.endPositions = endPositions;
+        self.animationDurations = animationDurations;
+        self.alphas = alphas;
+        self.delays = delays;
+    }
+    
+    return self;
+}
+
++ (instancetype)initWithEndPositions:(NSArray *)endPositions
+                  animationDurations:(NSArray *)animationDurations
+                              alphas:(NSArray *)alphas
+                               delay:(NSArray *)delays{
+    
+    return [[KTItemAnimationProperties alloc] initWithEndPositions:endPositions
+                                                animationDurations:animationDurations
+                                                            alphas:alphas
+                                                             delay:delays];
+}
+
+@end
+
+
+
