@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KTAnimator"
-  s.version      = "1.3"
+  s.version      = "1.4"
   s.summary      = "A scrollview that can animate its contents, and paginate them as slides."
 
   s.description  = <<-DESC
